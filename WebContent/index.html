@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<title>Beetle's Restaurant</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- jQueryJS lib -->
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+<!-- Firebase -->
+<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+
+<!-- AngularJS app -->
+<script src="lib/app.js"></script>
+
+<!-- Personal script for design -->
+<script src="lib/scripts.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.css">
+
+<!-- personal CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="container-fluid" ng-app="checkInApp" ng-controller="mainController">
+
+	<nav class="navbar navbar-fixed-top header">
+	 	<div class="col-md-12">
+	        <div class="navbar-header">
+	          
+	          <a class="navbar-brand navbar-brand-beetles" href="#"><img alt="Beetle's Restaurant" width="35px" height="35px" src="img/beetle_clip_art_hight.png"></a>
+	          <a class="navbar-brand navbar-brand-beetles" href="#">Beetle's Restaurant</a>
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+	          <i class="glyphicon glyphicon-search"></i>
+	          </button>
+	      
+	        </div>
+	        <div class="collapse navbar-collapse" id="navbar-collapse1">
+	          <form class="navbar-form pull-left">
+	              <div class="input-group" style="max-width:470px;">
+	                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+	                <div class="input-group-btn">
+	                  <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	                </div>
+	              </div>
+	          </form>
+	          <ul class="nav navbar-nav navbar-right">
+	             <li><a href="#" ng-click="reset()" class="btn btn-danger">Reset</a></li>
+    		     <li><input name="populatenumber" class="form-control" type="number" min="0" max="99" ng-model="populatenumber" ng-change="populatenumber.$save()"></li>
+    		     <li><a href="#" ng-click="populate()" class="btn btn-success">Populate</a></li>
+	             <li>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="#"><span class="badge pull-right">40</span>Check in</a></li>
+	                  <li><a href="#"><span class="badge pull-right">2</span>Check out</a></li>
+	                  <li><a href="#"><span class="badge pull-right">0</span>Iddle</a></li>	                  	                  
+	                </ul>
+	             </li>
+	             <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
+	             <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
+	           </ul>
+	        </div>	
+	     </div>	
+		</nav>
+		
+	<div class="navbar navbar-default" id="subnav">
+	    <div class="col-md-12">
+	        <div class="navbar-header">
+	          
+	          <a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default btn-plus dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+	          <ul class="nav dropdown-menu">
+	              <li><a href="#"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i> Profile</a></li>
+	              <li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
+	              <li><a href="#"><i class="glyphicon glyphicon-inbox" style="color:#11dd11;"></i> Pages</a></li>
+	              <li class="nav-divider"></li>
+	              <li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
+	              <li><a href="#"><i class="glyphicon glyphicon-plus"></i> More..</a></li>
+	          </ul>
+	          
+	          
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          </button>
+	      
+	        </div>
+	        <div class="collapse navbar-collapse" id="navbar-collapse2">
+	          <ul class="nav navbar-nav navbar-right">
+	             <li class="active"><a href="#">Posts</a></li>
+	             <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
+	             <li><a href="#aboutModal" role="button" data-toggle="modal">About</a></li>
+	           </ul>
+	        </div>	
+	     </div>	
+	</div>		
+  
+	<div class="container" id="main">
+	  
+	  <div class="row">
+	    
+	    <div class="col-md-4 col-sm-6 text-center" ng-repeat="item in checkin">
+	      
+		      <div class="panel panel-default">
+			      <div class="panel-heading">
+					  <h3 class="panel-title"><span>Table:</span>
+					  	<select name="singleSelect" ng-model="item.table" ">
+	      					<option value=1>01</option>
+	      					<option value=2>02</option>
+	      					<option value=3>03</option>
+	      					<option value=4>04</option>
+	      					<option value=5>05</option>
+	      					<option value=6>06</option>
+	      					<option value=7>07</option>
+	      					<option value=8>08</option>
+	      					<option value=9>09</option>
+	      					<option value=10>10</option>
+	      					<option value=11>11</option>
+	      					<option value=12>12</option>      					
+	      				</select>	      				
+					  </h3>				      			      
+				  </div>
+				  <div class="panel-body">			  	  
+					  <div class="row">
+					      <div class="col-md-12">
+					        <span>Customer: </span>
+					      </div>   
+				      </div>  
+				      <div class="row">
+				      	  <div class="col-md-3">
+					      	  <img class="pictureUrl" ng-src="{{ item.pictureUrl }}">
+					      </div>
+					      <div class="col-md-9">
+							   <h4>{{ item.customerName }}</h4>
+						  </div>	
+					  </div>
+					  <div class="row" ng-if="item.status=='CheckInRequest'">
+				      	  <div class="col-md-12">
+					      	  <a href="#" class="btn btn-success" ng-click="actCheckIn( $event, item )">Check in</a>
+						  </div>	
+					  </div>
+					  <div class="row" ng-if="item.status == 'CheckOutRequest' || item.status == 'CheckOutSucess'">
+				      	  <div class="col-md-12">
+				      	      <span>Bill: </span><input name="bill" type="number" min="0" max="9999999" ng-model="item.bill" ng-change="item.$save()">
+						  </div>	
+					  </div>
+					  <div class="row" ng-if="item.status == 'CheckOutRequest'">
+				      	  <div class="col-md-12">
+					      	  <a href="#" class="btn btn-warning" ng-click="actCheckIn( $event, item )">Check out</a>
+						  </div>	
+					  </div>
+					  <div class="row">
+					      <div class="col-md-12">
+					        <p><span>Status: </span>{{item.status}}</p>	
+					        <!-- <p><span>Transaction: </span>{{item.transaction}}</p> -->			        
+					      </div>   
+				      </div>
+				   </div>	 	    		      
+		      </div>
+	      
+	    </div>       
+	      
+	  </div>
+	   
+	</div>
+</div>
+
+
+<!--login modal-->
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2>
+      </div>
+      <div class="modal-body">
+          <form class="form col-md-12 center-block">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-warning">Sign In</button>
+              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>
+
+
+<!--about modal-->
+<div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center">About</h2>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12 text-center">
+            <a href="http://www.totvslabs.com/">Made by Totvs Lab Team</a>
+            <br><br>
+            <a href="https://github.com/totvslabs/beedlesreataurant_web">GitHub Fork</a>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+  </div>
+  </div>
+</div>
+
+</body>
+</html>
