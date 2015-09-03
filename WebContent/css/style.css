@@ -18,7 +18,7 @@ author: bootply.com
 body {
   background-color:#e0e0e0;
   -webkit-font-smoothing: antialiased;
-  font: normal 14px Roboto,arial,sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: #9b9b9b;
 }
 span{
@@ -27,6 +27,13 @@ span{
 input, h1, h2, h3, h4, h5, h6{
 	color: #ff5915;
 }
+
+
+h4 {
+	font-size: 24px;
+	margin: 0;
+}
+
 .navbar-default {background-color:#f4f4f4;margin-top:50px;border-width:0;z-index:5;}
 .navbar-default .navbar-nav > .active > a,.navbar-default .navbar-nav > li:hover > a {border:0 solid #4285f4;border-bottom-width:2px;font-weight:800;background-color:transparent;}
 .navbar-default .dropdown-menu {background-color:#ffffff;}
@@ -80,11 +87,7 @@ textarea {
 .list-group-item:first-child,.list-group-item:last-child {
  border-radius:0;
 }
-h3,h4,h5 { 
- border:0 solid #efefef; 
- border-bottom-width:1px;
- padding-bottom:10px;
-}
+
 .modal-dialog {
  width: 450px;
 }
@@ -116,4 +119,28 @@ h3,h4,h5 {
 }
 a , a:hover, a:active, a:focus, .navbar-brand-beetles a , .navbar-brand-beetles a:hover, .navbar-brand-beetles a:active, .navbar-brand-beetles a:focus{
 	color: #ff5915;
+}
+
+
+a.btn {
+	width: 100%;
+}
+
+input.bill {
+	font-size: 34px;
+	font-weight: 300;
+	border: none;
+	width: 100%;
+}
+
+input.bill:focus {
+	outline: none;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.pull-right {
+	float: right;
 }

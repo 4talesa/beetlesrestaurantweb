@@ -101,11 +101,11 @@ angular.module('checkInApp', ['firebase'])
 			    switch(intStatus){
 			    	case 0: strStatus = 'CheckInRequest';
 			    	break;
-			    	case 1: strStatus = 'CheckInSucess';
+			    	case 1: strStatus = 'CheckInSuccess';
 			    	break;
 			    	case 2: strStatus = 'CheckOutRequest';
 			    	break;
-			    	default: strStatus = 'CheckOutSucess';
+			    	default: strStatus = 'CheckOutSuccess';
 			    	break;
 			    }
 		    

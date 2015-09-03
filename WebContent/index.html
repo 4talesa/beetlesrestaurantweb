@@ -26,12 +26,16 @@
 <!-- AngularJS app -->
 <script src="lib/app.js"></script>
 
-<!-- Personal script for design -->
-<script src="lib/scripts.js"></script>
+<script src="lib/classie.js"></script>
+<script src="lib/selectFx.js"></script>
+
+
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.css">
+
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600' rel='stylesheet' type='text/css'>
 
 <!-- personal CSS -->
 <link rel="stylesheet" href="css/style.css">
@@ -39,7 +43,7 @@
 </head>
 <body>
 
-<div class="container-fluid" ng-app="checkInApp" ng-controller="mainController">
+<div ng-app="checkInApp" ng-controller="mainController">
 
 	<nav class="navbar navbar-fixed-top header">
 	 	<div class="col-md-12">
@@ -54,7 +58,7 @@
 	        </div>
 	        <div class="collapse navbar-collapse" id="navbar-collapse1">
 	          <form class="navbar-form pull-left">
-	              <div class="input-group" style="max-width:470px;">
+	              <div class="input-group">
 	                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
 	                <div class="input-group-btn">
 	                  <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -70,7 +74,7 @@
 	                <ul class="dropdown-menu">
 	                  <li><a href="#"><span class="badge pull-right">40</span>Check in</a></li>
 	                  <li><a href="#"><span class="badge pull-right">2</span>Check out</a></li>
-	                  <li><a href="#"><span class="badge pull-right">0</span>Iddle</a></li>	                  	                  
+	                  <li><a href="#"><span class="badge pull-right">0</span>Idle</a></li>	                  	                  
 	                </ul>
 	             </li>
 	             <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
@@ -84,7 +88,7 @@
 	    <div class="col-md-12">
 	        <div class="navbar-header">
 	          
-	          <a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default btn-plus dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+	          <!-- <a href="#" class="navbar-btn btn btn-default btn-plus dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i class="glyphicon glyphicon-chevron-down"></i></small></a>
 	          <ul class="nav dropdown-menu">
 	              <li><a href="#"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i> Profile</a></li>
 	              <li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
@@ -93,7 +97,7 @@
 	              <li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
 	              <li><a href="#"><i class="glyphicon glyphicon-plus"></i> More..</a></li>
 	          </ul>
-	          
+	           -->
 	          
 	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
 	          <span class="sr-only">Toggle navigation</span>
@@ -117,39 +121,41 @@
 	  
 	  <div class="row">
 	    
-	    <div class="col-md-4 col-sm-6 text-center" ng-repeat="item in checkin">
+	    <div class="col-md-4 col-sm-6" ng-repeat="item in checkin">
 	      
 		      <div class="panel panel-default">
-			      <div class="panel-heading">
-					  <h3 class="panel-title"><span>Table:</span>
-					  	<select name="singleSelect" ng-model="item.table" ">
-	      					<option value=1>01</option>
-	      					<option value=2>02</option>
-	      					<option value=3>03</option>
-	      					<option value=4>04</option>
-	      					<option value=5>05</option>
-	      					<option value=6>06</option>
-	      					<option value=7>07</option>
-	      					<option value=8>08</option>
-	      					<option value=9>09</option>
-	      					<option value=10>10</option>
-	      					<option value=11>11</option>
-	      					<option value=12>12</option>      					
-	      				</select>	      				
-					  </h3>				      			      
-				  </div>
+			     
 				  <div class="panel-body">			  	  
-					  <div class="row">
-					      <div class="col-md-12">
-					        <span>Customer: </span>
-					      </div>   
-				      </div>  
+					    
 				      <div class="row">
 				      	  <div class="col-md-3">
 					      	  <img class="pictureUrl" ng-src="{{ item.pictureUrl }}">
 					      </div>
 					      <div class="col-md-9">
-							   <h4>{{ item.customerName }}</h4>
+					      	<div class="header flex">
+							   <h4 class="pull-left">{{ item.customerName }}</h4>
+							    <select class="pull-right" name="singleSelect" ng-model="item.table">
+			      					<option value='1'>01</option>
+			      					<option value='2'>02</option>
+			      					<option value='3'>03</option>
+			      					<option value='4'>04</option>
+			      					<option value='5'>05</option>
+			      					<option value='6'>06</option>
+			      					<option value='7'>07</option>
+			      					<option value='8'>08</option>
+			      					<option value='9'>09</option>
+			      					<option value='10'>10</option>
+			      					<option value='11'>11</option>
+			      					<option value='12'>12</option>      					
+			      				</select>	
+
+					      		<div class="clearfix"></div>
+					      		<span>{{item.status}}</span>
+					      	</div>
+							  
+			      				
+			      				<div class="clearfix"></div>
+			      				<input class="bill" name="bill" type="text" ng-model="item.bill" ng-change="item.$save()">
 						  </div>	
 					  </div>
 					  <div class="row" ng-if="item.status=='CheckInRequest'">
@@ -157,22 +163,13 @@
 					      	  <a href="#" class="btn btn-success" ng-click="actCheckIn( $event, item )">Check in</a>
 						  </div>	
 					  </div>
-					  <div class="row" ng-if="item.status == 'CheckOutRequest' || item.status == 'CheckOutSucess'">
-				      	  <div class="col-md-12">
-				      	      <span>Bill: </span><input name="bill" type="number" min="0" max="9999999" ng-model="item.bill" ng-change="item.$save()">
-						  </div>	
-					  </div>
+					
 					  <div class="row" ng-if="item.status == 'CheckOutRequest'">
 				      	  <div class="col-md-12">
 					      	  <a href="#" class="btn btn-warning" ng-click="actCheckIn( $event, item )">Check out</a>
 						  </div>	
 					  </div>
-					  <div class="row">
-					      <div class="col-md-12">
-					        <p><span>Status: </span>{{item.status}}</p>	
-					        <!-- <p><span>Transaction: </span>{{item.transaction}}</p> -->			        
-					      </div>   
-				      </div>
+					  
 				   </div>	 	    		      
 		      </div>
 	      
@@ -237,6 +234,11 @@
   </div>
   </div>
 </div>
+
+<!-- Personal script for design -->
+<script src="lib/scripts.js"></script>
+
+
 
 </body>
 </html>
