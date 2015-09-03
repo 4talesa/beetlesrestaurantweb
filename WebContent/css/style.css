@@ -144,3 +144,7 @@ input.bill:focus {
 .pull-right {
 	float: right;
 }
+
+.panel {
+	height: 155px;
+}
