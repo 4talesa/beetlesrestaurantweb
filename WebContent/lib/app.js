@@ -37,27 +37,9 @@ angular.module('checkInApp', ['firebase'])
   listRef.on("value", function(snap) {
     $scope.online = snap.numChildren();
   });
- 
-
-  //connect to firebase 
-  var refTable = new Firebase("https://pocbeacons.firebaseio.com/table");
-  refTable.authWithCustomToken(token, function(error, authData) {
-	    if (error) {
-	      alert("Authentication Failed!", error);
-	    } else {
-	      //alert("Authenticated successfully with payload:", authData);
-	    }
-	  });
-
-  // sync as object 
-  var syncObjectTable = $firebaseObject(refTable);
-
-  // three way data binding
-  syncObjectTable.$bindTo($scope, 'table');
-  
   
   // connect to firebase 
-  var ref = new Firebase("https://pocbeacons.firebaseio.com/checkin");
+  var ref = new Firebase("https://pocbeacons.firebaseio.com/restaurant/checkin");
   ref.authWithCustomToken(token, function(error, authData) {
 	    if (error) {
 	      alert("Authentication Failed!", error);
@@ -110,7 +92,7 @@ angular.module('checkInApp', ['firebase'])
 			    }
 		    
 			    // connect to firebase 
-			    var refRandom = new Firebase("https://pocbeacons.firebaseio.com/checkin/test_"+$scope.user.registered);
+			    var refRandom = new Firebase("https://pocbeacons.firebaseio.com/restaurant/checkin/test_"+$scope.user.registered);
 			    refRandom.authWithCustomToken(token, function(error, authData) {
 				    if (error) {
 				      alert("Authentication Failed!", error);
@@ -136,7 +118,7 @@ angular.module('checkInApp', ['firebase'])
   $scope.actCheckIn = function($event, item){
 	  $event.preventDefault();
 	  
-	  var checkInref = new Firebase("https://pocbeacons.firebaseio.com/checkin/"+item.transaction+"/status");
+	  var checkInref = new Firebase("https://pocbeacons.firebaseio.com/restaurant/checkin/"+item.transaction+"/status");
 	  
 	  if (item.status =="CheckInRequest"){
 		  checkInref.set(
